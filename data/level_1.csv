@@ -1,0 +1,7 @@
+Client ID,Prin ID,Prin Description,As of Date,Transaction Amount,Actual Points Awarded,Expected Points,Difference,% Difference,Monitoring
+1201,502,Apparal Visa Credit Card,2023-03-02,166375,347626,347626,0,0,Pass
+1201,517,Gas Mastercard,2023-03-02,12296,924663,924663,0,0,Pass
+1201,466,Auto Rewards Visa,2023-03-02,94721,473605,94721,378884,4,Fail
+1211,482,Brand MC,2023-03-02,742211,843087,843087,0,0,Pass
+1211,494,Brand CARD,2023-03-02,2316682,6213791,6213791,0,0,Pass
+1211,799,POINTS MASTERCARD,2023-03-02,239914,371696,371696,0,0,Pass

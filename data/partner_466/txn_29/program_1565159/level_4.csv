@@ -1,0 +1,18 @@
+Node_ID,Variable,col_value,Formula
+N0,earn_rule_outcome,1,"
+(merchantSystemIdentifier = '0010') AND
+(merchantPrincipalIdentifier = '0000') AND
+(merchantAgentIdentifier = '0000') AND
+(transactionCode in ('253','255')) AND
+(merchantCategoryCode  not in ('4899','5462','5541','5542','5733','5735','5811','5812','5813','5814','5815','5816','5971','7032','7033','7829','7832','7841','7911','7922','7929','7932','7933','7941','7991','7992','7993','7994','7996','7997','7998','7999')) AND
+(associatedMerchantSystemNumber != '6846') AND
+(associatedMerchantPrinNumber != '4660')
+
+"
+N0.0.1.1.0.0,          merchantSystemIdentifier,10,          merchantSystemIdentifier
+N0.0.6.1.0.0,          merchantPrincipalIdentifier,0,          merchantPrincipalIdentifier
+N0.0.11.1.0.0,          merchantAgentIdentifier,0,          merchantAgentIdentifier
+N0.0.16.1.0,        transactionCode,253,        transactionCode
+N0.0.21.1.0,        merchantCategoryCode,5511,        merchantCategoryCode
+N0.0.26.1.0.0,          associatedMerchantSystemNumber,10,          associatedMerchantSystemNumber
+N0.0.31.1.0.0,          associatedMerchantPrinNumber,0,          associatedMerchantPrinNumber
