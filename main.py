@@ -103,7 +103,7 @@ TL_layout = html.Div(
         ),
         # Left column - shown on laptops/desktops but hidden on smaller screens
         html.Div(
-            html.Button("Top Level", id="TL-button", style=button_style),
+            html.Button("Settings", id="TL-button", style=button_style),
             className="col-md-2 d-none d-md-block", #"col-md-2 d-none d-md-block",  # Bootstrap classes for responsiveness
             style={"background-color": "black", "height": "calc(100vh - 60px)"},
             id='col_id-0',

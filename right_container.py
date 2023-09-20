@@ -6,7 +6,39 @@ import pandas as pd
 # 2. LAYOUT FUNCTIONS
 #---
 
-def my_table(title,id,df):
+gh_button_style = {
+    'backgroundColor': 'lightgrey',  
+    'color': 'grey',
+    'border': 'none',
+    'borderRadius': '5px',
+    'padding': '1px 20px',
+    'fontSize': '16px',
+    'cursor': 'pointer',
+    'textDecoration': 'none',
+    'marginLeft': '10px'  # Space between H5 and the button
+}
+
+def table_title(title, link):
+    return html.Div([
+        html.H5(title),
+        html.A(
+            html.Button('View Code', style=gh_button_style),
+            href=link,  # Repository URL from the provided link
+            target='_blank'
+        ),
+        html.A(
+            html.Button('View File', style=gh_button_style),
+            href=link,  # Repository URL from the provided link
+            target='_blank'
+        ),
+    ], style={
+        'display': 'flex',
+        'alignItems': 'bottom',  # Vertically align the H5 and button
+        'marginTop': '10px',
+    })
+
+
+def my_table(title,link,id,df):
 
     style_header={
         'text-align': 'center',
@@ -41,7 +73,7 @@ def my_table(title,id,df):
 
     return html.Div([
         dcc.Store(id='selected-cell'),
-        html.H5(title),
+        table_title(title, link),
         dash_table.DataTable(
             id=id,
             data=df.to_dict('records'),
@@ -62,9 +94,10 @@ def my_table(title,id,df):
 
 
 def right_container_layout():
+    link_1 = 'https://github.com/zenon-test/Loyalty_Control/blob/main/data/level_1.csv'
     return html.Div(
             [
-                my_table(title='Level 1', id='level-1-table', df=df_level_1),
+                my_table(title='Level 1', link=link_1, id='level-1-table', df=df_level_1),
                 html.Div(id='level-2-div'),
                 html.Div(id='level-3-div'),
                 html.Div(id='level-4-div'),
@@ -80,11 +113,11 @@ def right_container_layout():
 # 4. Create Data
 #---
 
-df_level_1 = pd.read_excel('data/Top_Level.xlsx')
-df_level_2 = pd.read_excel('data/Prin_0466.xlsx')
-df_level_3 = pd.read_excel('data/tran_prog.xlsx')
-df_level_4_60 = pd.read_excel('data/df_dl_1565160_.xlsx')
-df_level_4_59 = pd.read_excel('data/df_dl_1565159_.xlsx')
+df_level_1 = pd.read_excel('data/level_1.xlsx')
+df_level_2 = pd.read_excel('data/partner_466/level_2.xlsx')
+df_level_3 = pd.read_excel('data/partner_466/txn_29/level_3.xlsx')
+df_level_4_60 = pd.read_excel('data/partner_466/txn_29/program_1565160/level_4.xlsx')
+df_level_4_59 = pd.read_excel('data/partner_466/txn_29/program_1565159/level_4.xlsx')
 
 #---
 # 5. Create Layout
@@ -101,12 +134,14 @@ def register_drilldown_callbacks(app):
             'div': 'level-2-div',
             'table': 'level-2-table',
             'title': 'Level 2',
+            'link' : 'https://github.com/zenon-test/Loyalty_Control/blob/main/data/partner_466/level_2.csv',
             'df': df_level_2
         },
         '3': {
             'div': 'level-3-div',
             'table': 'level-3-table',
             'title': 'Level 3',
+            'link' : 'https://github.com/zenon-test/Loyalty_Control/blob/main/data/partner_466/txn_29/level_3.csv',
             'df': df_level_3
         }
         # Add more levels here as needed
@@ -120,7 +155,7 @@ def register_drilldown_callbacks(app):
             )
         def display_next_level(selected_cells, data):
             if selected_cells:
-                return my_table(title=out['title'], id=out['table'], df=out['df'])
+                return my_table(title=out['title'], link=out['link'], id=out['table'], df=out['df'])
             return ''
     
     show_next_level_callback(in_table='level-1-table', out=level_dict['2'])
@@ -135,9 +170,11 @@ def register_drilldown_callbacks(app):
             return ''
 
         row = selected_cells[0]['row']
+        link_0 = 'https://github.com/zenon-test/Loyalty_Control/blob/main/data/partner_466/txn_29/program_1565160/level_4.csv'
+        link_1 = 'https://github.com/zenon-test/Loyalty_Control/blob/main/data/partner_466/txn_29/program_1565159/level_4.csv'
 
         if row == 0:
-            return my_table(title='Program Code: 60', id='level-4-table-60', df=df_level_4_60)
+            return my_table(title='Program Code: 60', link=link_0, id='level-4-table-60', df=df_level_4_60)
         elif row == 1:
-            return my_table(title='Program Code: 59', id='level-4-table-59', df=df_level_4_59)
+            return my_table(title='Program Code: 59', link=link_1, id='level-4-table-59', df=df_level_4_59)
     
