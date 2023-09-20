@@ -3,6 +3,6 @@ N0,earn_rule_outcome,0,"(transactionCode in ('253','255')) AND
 (associatedMerchantSystemNumber = '6846') AND
 (associatedMerchantPrinNumber = '4660')
 "
-N0.0.0.1.0,        transactionCode,253,        transactionCode
-N0.0.5.1.0.0,          associatedMerchantSystemNumber,10,          associatedMerchantSystemNumber
-N0.0.10.1.0.0,          associatedMerchantPrinNumber,0,          associatedMerchantPrinNumber
+N0.0.0.1.0,        transactionCode,'253',        transactionCode
+N0.0.5.1.0.0,          associatedMerchantSystemNumber,'0010',          associatedMerchantSystemNumber
+N0.0.10.1.0.0,          associatedMerchantPrinNumber,'0000',          associatedMerchantPrinNumber

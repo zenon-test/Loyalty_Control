@@ -9,10 +9,10 @@ N0,earn_rule_outcome,1,"
 (associatedMerchantPrinNumber != '4660')
 
 "
-N0.0.1.1.0.0,          merchantSystemIdentifier,10,          merchantSystemIdentifier
-N0.0.6.1.0.0,          merchantPrincipalIdentifier,0,          merchantPrincipalIdentifier
-N0.0.11.1.0.0,          merchantAgentIdentifier,0,          merchantAgentIdentifier
-N0.0.16.1.0,        transactionCode,253,        transactionCode
-N0.0.21.1.0,        merchantCategoryCode,5511,        merchantCategoryCode
-N0.0.26.1.0.0,          associatedMerchantSystemNumber,10,          associatedMerchantSystemNumber
-N0.0.31.1.0.0,          associatedMerchantPrinNumber,0,          associatedMerchantPrinNumber
+N0.0.1.1.0.0,          merchantSystemIdentifier,'0010',          merchantSystemIdentifier
+N0.0.6.1.0.0,          merchantPrincipalIdentifier,'0000',          merchantPrincipalIdentifier
+N0.0.11.1.0.0,          merchantAgentIdentifier,'0000',          merchantAgentIdentifier
+N0.0.16.1.0,        transactionCode,'253',        transactionCode
+N0.0.21.1.0,        merchantCategoryCode,'5511',        merchantCategoryCode
+N0.0.26.1.0.0,          associatedMerchantSystemNumber,'0010',          associatedMerchantSystemNumber
+N0.0.31.1.0.0,          associatedMerchantPrinNumber,'0000',          associatedMerchantPrinNumber
