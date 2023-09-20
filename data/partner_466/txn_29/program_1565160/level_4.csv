@@ -1,5 +1,5 @@
 Node_ID,Variable,col_value,Formula
-N0,earn_rule_outcome,0,"(transactionCode in ('253','255')) AND
+N0,earn_rule_outcome_1565160,0,"(transactionCode in ('253','255')) AND
 (associatedMerchantSystemNumber = '6846') AND
 (associatedMerchantPrinNumber = '4660')
 "

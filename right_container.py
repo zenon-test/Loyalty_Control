@@ -1,5 +1,6 @@
 import dash
 from dash import Input, Output, State, dcc, html, dash_table
+from dash.dash_table.Format import Format, Scheme, Symbol, Group
 import pandas as pd
 
 #---
@@ -57,6 +58,30 @@ style_cell={
 lightred = 'rgba(240, 128, 128, 0.3)'
 lightgreen = 'rgba(144, 238, 144, 0.3)'
 
+comma_fmt = Format(group=Group.yes)
+pct_fmt = {
+    "specifier": "$,",
+    "locale": {"symbol": ["", "%"]},
+}
+
+numeric_cols = {
+    'Transaction Amount': comma_fmt,
+    'Actual Points Awarded': comma_fmt,
+    'Expected Points': comma_fmt,
+    'Difference': comma_fmt,
+    'Leakage': comma_fmt,
+    'transactionAmount': comma_fmt,
+    'expected_points': comma_fmt,
+    'actual_points': comma_fmt,
+    '% Difference': pct_fmt,
+}
+
+def num_align_right():
+    return [{
+        'if': {'column_id': col},
+        'textAlign': 'right',
+    } for col in numeric_cols]
+
 style_cond_level_1 = [
     {
         'if': {'row_index': 2, 'column_id': 'Monitoring'},  # Specify the target cell
@@ -68,15 +93,27 @@ style_cond_level_1 = [
         'backgroundColor': lightred,
     },
 ]
+style_cond_level_1 = style_cond_level_1 + num_align_right()
 
 style_cond_level_2 = [
+    {
+        'if': {'column_id': 'Leakage'},  # Specify the target cell
+        'color': 'red',  # Apply the bold font weight
+        'fontWeight': 'bold',
+    },
     {
         'if': {'row_index': 0},  
         'backgroundColor': lightred,
     },
 ]
+style_cond_level_2 = style_cond_level_2 + num_align_right()
 
 style_cond_level_3 = [
+    {
+        'if': {'row_index': 0, 'column_id': 'actual_points'},  # Specify the target cell
+        'color': 'red',  # Apply the bold font weight
+        'fontWeight': 'bold',
+    },
     {
         'if': {'row_index': 0},  
         'backgroundColor': lightred,
@@ -86,8 +123,13 @@ style_cond_level_3 = [
         'backgroundColor': lightgreen,
     },
 ]
+style_cond_level_3 = style_cond_level_3 + num_align_right()
 
 style_cond_level_4_0 = [
+    {
+        'if': {'row_index': 0, 'column_id': 'Variable'},  # Specify the target cell
+        'fontWeight': 'bold',
+    },
     {
         'if': {'row_index': 0},  
         'backgroundColor': lightred,
@@ -118,8 +160,12 @@ style_cond_level_4_0 = [
 
 style_cond_level_4_1 = [
     {
+        'if': {'row_index': 0, 'column_id': 'Variable'},  # Specify the target cell
+        'fontWeight': 'bold',
+    },
+    {
         'if': {'row_index': 0},  
-        'backgroundColor': lightgreen
+        'backgroundColor': lightgreen,
     },
     {
         'if': {'column_id': 'col_value'},
@@ -141,14 +187,29 @@ def my_table(title,link_c,link_d,id,df,style_cond):
 
     tooltip_header = {col: {'value': col, 'use_with': 'header'} for col in df.columns}
 
+    def num_col(col):
+        return {
+            "name": col, 
+            "id": col, 
+            "type": "numeric",
+            "format": numeric_cols[col],
+        }
+    
+    def oth_col(col):
+        return {
+            "name": col, 
+            "id": col,
+        } 
+    
+    columns = [num_col(col) if col in numeric_cols else oth_col(col) for col in df.columns]
+
     return html.Div([
         dcc.Store(id='selected-cell'),
-        html.Hr(),
         table_title(title, link_c, link_d),
         dash_table.DataTable(
             id=id,
             data=df.to_dict('records'),
-            columns=[{'name': col, 'id': col} for col in df.columns],
+            columns=columns,
             style_header=style_header,
             style_data=style_data,
             style_cell=style_cell,
@@ -160,6 +221,7 @@ def my_table(title,link_c,link_d,id,df,style_cond):
             tooltip_delay=0,
             tooltip_duration=None
         ),
+        html.Hr(),
     ]
     )
 
@@ -171,7 +233,7 @@ def right_container_layout():
     return html.Div(
             [
                 my_table(
-                    title='Level 1', 
+                    title='Level 1: All Partners', 
                     link_c=link_1c, 
                     link_d=link_1d, 
                     id='level-1-table', 
@@ -193,6 +255,7 @@ def right_container_layout():
 #---
 
 df_level_1 = pd.read_excel('data/level_1.xlsx')
+df_level_1['% Difference'] = df_level_1['% Difference'] * 100
 df_level_2 = pd.read_excel('data/partner_466/level_2.xlsx')
 df_level_3 = pd.read_excel('data/partner_466/txn_29/level_3.xlsx')
 df_level_4_60 = pd.read_excel('data/partner_466/txn_29/program_1565160/level_4.xlsx')
@@ -212,7 +275,7 @@ def register_drilldown_callbacks(app):
         '2': {
             'div': 'level-2-div',
             'table': 'level-2-table',
-            'title': 'Level 2',
+            'title': 'Level 2: Partner=466',
             'link_c' : f'{base_url}/level_2.sql',
             'link_d' : f'{base_url}/level_2.csv',
             'df': df_level_2,
@@ -221,7 +284,7 @@ def register_drilldown_callbacks(app):
         '3': {
             'div': 'level-3-div',
             'table': 'level-3-table',
-            'title': 'Level 3',
+            'title': 'Level 3: Txn_ID=29',
             'link_c' : f'{base_url}/txn_29/level_3.sql',
             'link_d' : f'{base_url}/txn_29/level_3.csv',
             'df': df_level_3,
@@ -267,7 +330,7 @@ def register_drilldown_callbacks(app):
 
         if row == 0:
             return my_table(
-                title='Level 4: Program Code: 1565160', 
+                title='Level 4: Program Code=1565160', 
                 link_c=link_0c, 
                 link_d=link_0d, 
                 id='level-4-table-60', 
@@ -275,7 +338,7 @@ def register_drilldown_callbacks(app):
                 style_cond=style_cond_level_4_0)
         elif row == 1:
             return my_table(
-                title='Level 4: Program Code: 1565159', 
+                title='Level 4: Program Code=1565159', 
                 link_c=link_1c, 
                 link_d=link_1d, 
                 id='level-4-table-59', 

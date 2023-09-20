@@ -1,4 +1,4 @@
-txn_id,clientNumber,Prin ID,Prin Description,program_name,a,transactionAmount,merchantSystemIdentifier,merchantPrincipalIdentifier,merchantAgentIdentifier,transactionCode,merchantCategoryCode,principalNumber,associatedMerchantSystemNumber,associatedMerchantPrinNumber,clientControl18,cardAcceptorCode,earn_rule_flg,excl_rule_flg,calculation_multiplier,expected_points,actual_points
-29,1201,466,Auto Rewards Visa,1565160,29,15000,10,0,0,253,5511,0,10,0,,436845558641121,0,0,5,0,75000
-29,1201,466,Auto Rewards Visa,1565159,29,15000,10,0,0,253,5511,0,10,0,,436845558641121,1,0,1,15000,0
-29,1201,466,Auto Rewards Visa,147305,29,15000,10,0,0,253,5511,0,10,0,,436845558641121,0,0,2,0,0
+txn_id,clientNumber,Partner ID,Partner Description,program_name,a,transactionAmount,merchantSystemIdentifier,merchantPrincipalIdentifier,merchantAgentIdentifier,transactionCode,merchantCategoryCode,principalNumber,associatedMerchantSystemNumber,associatedMerchantPrinNumber,clientControl18,cardAcceptorCode,earn_rule_flg,excl_rule_flg,calculation_multiplier,expected_points,actual_points
+29,1201,466,Auto Rewards Visa,1565160,29,15000,'0010','0000','0000','253','5511','0000','0010','0000',,436845558641121,0,0,5,0,75000
+29,1201,466,Auto Rewards Visa,1565159,29,15000,'0010','0000','0000','253','5511','0000','0010','0000',,436845558641121,1,0,1,15000,0
+29,1201,466,Auto Rewards Visa,147305,29,15000,'0010','0000','0000','253','5511','0000','0010','0000',,436845558641121,0,0,2,0,0

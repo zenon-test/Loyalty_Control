@@ -1,2 +1,2 @@
-Prin ID,acc_id,txn_id,Transaction Type,Transaction Amount,Actual Points Awarded,Expected Points,Leakage
+Partner ID,acc_id,txn_id,Transaction Type,Transaction Amount,Actual Points Awarded,Expected Points,Leakage
 466,29,29,SALE,15000,75000,15000,60000

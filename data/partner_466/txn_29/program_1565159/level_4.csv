@@ -1,5 +1,5 @@
 Node_ID,Variable,col_value,Formula
-N0,earn_rule_outcome,1,"
+N0,earn_rule_outcome_1565159,1,"
 (merchantSystemIdentifier = '0010') AND
 (merchantPrincipalIdentifier = '0000') AND
 (merchantAgentIdentifier = '0000') AND

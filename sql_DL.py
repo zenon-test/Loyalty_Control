@@ -85,7 +85,7 @@ def gen_values(program_cd, earn_sql):
 
     # Run SQL
     query = f"""
-        SELECT *, {earn_sql} as earn_rule_outcome
+        SELECT *, {earn_sql} as earn_rule_outcome_{program_cd}
         FROM df3_
         WHERE program_name = {str(program_cd)}
     """
